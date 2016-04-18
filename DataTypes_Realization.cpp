@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "DataTypes.h"
 #include <math.h>
-//Ученические библиотеки
+//РЈС‡РµРЅРёС‡РµСЃРєРёРµ Р±РёР±Р»РёРѕС‚РµРєРё
 #include "Sidorov.h"
 
-// ==================================== НАТУРАЛЬНОЕ ЧИСЛО  ==================================== 
+// ==================================== РќРђРўРЈР РђР›Р¬РќРћР• Р§РРЎР›Рћ  ==================================== 
 
-//Безаргументный конструктор
+//Р‘РµР·Р°СЂРіСѓРјРµРЅС‚РЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 DM_N::DM_N()
 {
 	a = 0;
 	n = 0;
 }
 
-//Конструктор задающий число
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р·Р°РґР°СЋС‰РёР№ С‡РёСЃР»Рѕ
 DM_N::DM_N(unsigned i)
 {
 	short count = 0;
@@ -37,7 +37,7 @@ DM_N::DM_N(unsigned i)
 	n = count;
 }
 
-//Конструктор копии
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёРё
 DM_N::DM_N(const DM_N &obj)
 {
 	this->n = obj.n;
@@ -47,26 +47,26 @@ DM_N::DM_N(const DM_N &obj)
 		this->a[i] = obj.a[i];
 }
 
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 DM_N::~DM_N()
 {
 	delete[] a;
 }
 
-//Вывод числа на экран
+//Р’С‹РІРѕРґ С‡РёСЃР»Р° РЅР° СЌРєСЂР°РЅ
 void DM_N::print()
 {
 	for (int i = n - 1; i >= 0; i--)
 		printf("%d", a[i]);
 }
 
-//Оператор взятия n-ой цифры
+//РћРїРµСЂР°С‚РѕСЂ РІР·СЏС‚РёСЏ n-РѕР№ С†РёС„СЂС‹
 unsigned short DM_N::operator [] (unsigned short i)
 {
 	return a[i];
 }
 
-//Сложение
+//РЎР»РѕР¶РµРЅРёРµ
 DM_N DM_N::operator + (const DM_N &add) const
 {
 	DM_N *result = new DM_N;
@@ -142,7 +142,7 @@ DM_N DM_N::operator + (const DM_N &add) const
 	return *result;
 }
 
-//Присваивание с созданием нового массива
+//РџСЂРёСЃРІР°РёРІР°РЅРёРµ СЃ СЃРѕР·РґР°РЅРёРµРј РЅРѕРІРѕРіРѕ РјР°СЃСЃРёРІР°
 void DM_N::operator= (const DM_N &equal) 
 {
 	if (this->a)
@@ -154,15 +154,15 @@ void DM_N::operator= (const DM_N &equal)
 		this->a[i] = equal.a[i];
 }
 
-//Умножение натурального числа на натуральное число (int)
+//РЈРјРЅРѕР¶РµРЅРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРіРѕ С‡РёСЃР»Р° РЅР° РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ (int)
 DM_N DM_N::operator* (const unsigned &mul) const
 {
 	if (mul == 0)
 		return DM_N(0);
 
-	unsigned r = 0;			//Остаток
+	unsigned r = 0;			//РћСЃС‚Р°С‚РѕРє
 
-	short sizeOfMul = 0;	//Размер мультипликатора
+	short sizeOfMul = 0;	//Р Р°Р·РјРµСЂ РјСѓР»СЊС‚РёРїР»РёРєР°С‚РѕСЂР°
 	unsigned temp = mul;
 	while (temp)
 	{
@@ -174,8 +174,8 @@ DM_N DM_N::operator* (const unsigned &mul) const
 	for (int i = 0; i < this->n + sizeOfMul; i++)
 		rawResult[i] = 0;
 
-	short current = 0;			//Номер текущего разряда
-	do							//Поразрядно помножаем и записывам остаток от деления на 10 в текущий разряд
+	short current = 0;			//РќРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ СЂР°Р·СЂСЏРґР°
+	do							//РџРѕСЂР°Р·СЂСЏРґРЅРѕ РїРѕРјРЅРѕР¶Р°РµРј Рё Р·Р°РїРёСЃС‹РІР°Рј РѕСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ РЅР° 10 РІ С‚РµРєСѓС‰РёР№ СЂР°Р·СЂСЏРґ
 	{
 		r += this->a[current] * mul;
 		rawResult[current] = r % 10;
@@ -183,17 +183,17 @@ DM_N DM_N::operator* (const unsigned &mul) const
 		current++;
 	} while (r || current < this->n);
 
-	while (r)	//Если остаток еще остался, записываем его
+	while (r)	//Р•СЃР»Рё РѕСЃС‚Р°С‚РѕРє РµС‰Рµ РѕСЃС‚Р°Р»СЃСЏ, Р·Р°РїРёСЃС‹РІР°РµРј РµРіРѕ
 	{
 		rawResult[current] = r % 10;
 		r /= 10;
 		current++;
 	}
 
-	short numberOfZeros = 0;	//Количество незначащих нулей
+	short numberOfZeros = 0;	//РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРµР·РЅР°С‡Р°С‰РёС… РЅСѓР»РµР№
 	for (int i = this->n + sizeOfMul - 1; i >= 0 && rawResult[i] == 0; i--, numberOfZeros++);
 
-	//Выделяем точное количество памяти
+	//Р’С‹РґРµР»СЏРµРј С‚РѕС‡РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°РјСЏС‚Рё
 	unsigned short *finalResult = new unsigned short[this->n + sizeOfMul - numberOfZeros];
 	for (int i = 0; i < this->n + sizeOfMul - numberOfZeros; i++)
 		finalResult[i] = rawResult[i];
@@ -207,27 +207,27 @@ DM_N DM_N::operator* (const unsigned &mul) const
 	return Nresult;
 }
 
-//Умножение натурального числа на натуральное число (DM_N) 
+//РЈРјРЅРѕР¶РµРЅРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРіРѕ С‡РёСЃР»Р° РЅР° РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ (DM_N) 
 DM_N DM_N::operator* (const DM_N &mul) const
 {
 	if (this->a[0] == 0 && this->n == 1 || mul.a[0] == 0 && mul.n == 1)
 		return DM_N(0);
 
-	unsigned short current = 0;					//Текущий разряд множителя
+	unsigned short current = 0;					//РўРµРєСѓС‰РёР№ СЂР°Р·СЂСЏРґ РјРЅРѕР¶РёС‚РµР»СЏ
 
-	DM_N res;									//Число, полученное умножением на текущий разряд множителя
+	DM_N res;									//Р§РёСЃР»Рѕ, РїРѕР»СѓС‡РµРЅРЅРѕРµ СѓРјРЅРѕР¶РµРЅРёРµРј РЅР° С‚РµРєСѓС‰РёР№ СЂР°Р·СЂСЏРґ РјРЅРѕР¶РёС‚РµР»СЏ
 	res.n = this->n + mul.n;
 	res.a = new unsigned short[res.n];
 	for (int i = 0; i < res.n; i++)
 		res.a[i] = 0;
 	
-	DM_N rawResult;								//Промежуточный результат
+	DM_N rawResult;								//РџСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
 	rawResult.n = this->n + mul.n;
 	rawResult.a = new unsigned short[rawResult.n];
 	for (int i = 0; i < rawResult.n; i++)
 		rawResult.a[i] = 0;
 
-	while (current < mul.n)						//Поразрядно умножаем
+	while (current < mul.n)						//РџРѕСЂР°Р·СЂСЏРґРЅРѕ СѓРјРЅРѕР¶Р°РµРј
 	{
 		for (short i = 0; i < this->n; i++)
 			res =  res + this->a[i] * mul.a[current] * (unsigned int)pow(10, i);
@@ -238,23 +238,23 @@ DM_N DM_N::operator* (const DM_N &mul) const
 		++current;
 	}
 	
-	DM_N result;								//Финальный результат
+	DM_N result;								//Р¤РёРЅР°Р»СЊРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
 
-	if (rawResult[rawResult.n - 1] == 0)				//Смотрим, есть ли незначащий нуль
+	if (rawResult[rawResult.n - 1] == 0)				//РЎРјРѕС‚СЂРёРј, РµСЃС‚СЊ Р»Рё РЅРµР·РЅР°С‡Р°С‰РёР№ РЅСѓР»СЊ
 		result.n = rawResult.n - 1;
 	else
 		result.n = rawResult.n;
 
-	result.a = new unsigned short[result.n];	//Записываем конечный результат
+	result.a = new unsigned short[result.n];	//Р—Р°РїРёСЃС‹РІР°РµРј РєРѕРЅРµС‡РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
 	for (int i = 0; i < result.n; i++)
 		result.a[i] = rawResult.a[i];
 	
 	return result;
 }
 
-// ==================================== ЦЕЛОЕ ЧИСЛО  ==================================== 
+// ==================================== Р¦Р•Р›РћР• Р§РРЎР›Рћ  ==================================== 
 
-//Безаргументный конструктор
+//Р‘РµР·Р°СЂРіСѓРјРµРЅС‚РЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 DM_Z::DM_Z()
 {
 	b = 0;
@@ -262,7 +262,7 @@ DM_Z::DM_Z()
 	n = 0;
 }
 
-//Конструктор задающий число
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р·Р°РґР°СЋС‰РёР№ С‡РёСЃР»Рѕ
 DM_Z::DM_Z(int i)
 {
 	if (i < 0)
@@ -296,7 +296,7 @@ DM_Z::DM_Z(int i)
 	n = count;
 }
 
-//Конструктор копии
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёРё
 DM_Z::DM_Z(const DM_Z &obj)
 {
 	this->b = obj.b;
@@ -307,7 +307,7 @@ DM_Z::DM_Z(const DM_Z &obj)
 		this->a[i] = obj.a[i];
 }
 
-//Вывод числа на экран
+//Р’С‹РІРѕРґ С‡РёСЃР»Р° РЅР° СЌРєСЂР°РЅ
 void DM_Z::print()
 {
 	if (b)
@@ -316,19 +316,19 @@ void DM_Z::print()
 		printf("%d", a[i]);
 }
 
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 DM_Z::~DM_Z()
 {
 	delete[] a;
 }
 
-//Оператор взятия n-ой цифры
+//РћРїРµСЂР°С‚РѕСЂ РІР·СЏС‚РёСЏ n-РѕР№ С†РёС„СЂС‹
 unsigned short DM_Z::operator[] (unsigned short i)
 {
 	return a[i];
 }
 
-//Приравнивание с созданием отдельного массива в свободной памяти
+//РџСЂРёСЂР°РІРЅРёРІР°РЅРёРµ СЃ СЃРѕР·РґР°РЅРёРµРј РѕС‚РґРµР»СЊРЅРѕРіРѕ РјР°СЃСЃРёРІР° РІ СЃРІРѕР±РѕРґРЅРѕР№ РїР°РјСЏС‚Рё
 void DM_Z::operator= (const DM_Z &equal)
 {
 	this->b = equal.b;
@@ -342,17 +342,17 @@ void DM_Z::operator= (const DM_Z &equal)
 		this->a[i] = equal.a[i];
 }
 
-//Умножение целого числа на целое число (int)
+//РЈРјРЅРѕР¶РµРЅРёРµ С†РµР»РѕРіРѕ С‡РёСЃР»Р° РЅР° С†РµР»РѕРµ С‡РёСЃР»Рѕ (int)
 DM_Z DM_Z::operator* (const int &mul) const
 {
-	DM_Z result; //Результат
+	DM_Z result; //Р РµР·СѓР»СЊС‚Р°С‚
 
 	if (mul == 0)
 		return DM_Z(0);
 
 
 	int tempMul = mul;
-	if (tempMul < 0)		//Задаем знак результата
+	if (tempMul < 0)		//Р—Р°РґР°РµРј Р·РЅР°Рє СЂРµР·СѓР»СЊС‚Р°С‚Р°
 	{
 		tempMul *= -1;
 		result.b = (this->b? 0 : 1);
@@ -362,9 +362,9 @@ DM_Z DM_Z::operator* (const int &mul) const
 		result.b = (this->b ? 1 : 0);
 	}
 
-	unsigned r = 0;			//Остаток
+	unsigned r = 0;			//РћСЃС‚Р°С‚РѕРє
 
-	short sizeOfMul = 0;	//Размер мультипликатора
+	short sizeOfMul = 0;	//Р Р°Р·РјРµСЂ РјСѓР»СЊС‚РёРїР»РёРєР°С‚РѕСЂР°
 	int temp = tempMul;
 	while (temp)
 	{
@@ -376,8 +376,8 @@ DM_Z DM_Z::operator* (const int &mul) const
 	for (int i = 0; i < this->n + sizeOfMul; i++)
 		rawResult[i] = 0;
 
-	short current = 0;			//Номер текущего разряда
-	do							//Поразрядно помножаем и записывам остаток от деления на 10 в текущий разряд
+	short current = 0;			//РќРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ СЂР°Р·СЂСЏРґР°
+	do							//РџРѕСЂР°Р·СЂСЏРґРЅРѕ РїРѕРјРЅРѕР¶Р°РµРј Рё Р·Р°РїРёСЃС‹РІР°Рј РѕСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ РЅР° 10 РІ С‚РµРєСѓС‰РёР№ СЂР°Р·СЂСЏРґ
 	{
 		r += this->a[current] * tempMul;
 		rawResult[current] = r % 10;
@@ -385,17 +385,17 @@ DM_Z DM_Z::operator* (const int &mul) const
 		current++;
 	} while (r || current < this->n);
 
-	while (r)	//Если остаток еще остался, записываем его
+	while (r)	//Р•СЃР»Рё РѕСЃС‚Р°С‚РѕРє РµС‰Рµ РѕСЃС‚Р°Р»СЃСЏ, Р·Р°РїРёСЃС‹РІР°РµРј РµРіРѕ
 	{
 		rawResult[current] = r % 10;
 		r /= 10;
 		current++;
 	}
 
-	short numberOfZeros = 0;	//Количество незначащих нулей
+	short numberOfZeros = 0;	//РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРµР·РЅР°С‡Р°С‰РёС… РЅСѓР»РµР№
 	for (int i = this->n + sizeOfMul - 1; i >= 0 && rawResult[i] == 0; i--, numberOfZeros++);
 
-	//Выделяем точное количество памяти
+	//Р’С‹РґРµР»СЏРµРј С‚РѕС‡РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°РјСЏС‚Рё
 	unsigned short *finalResult = new unsigned short[this->n + sizeOfMul - numberOfZeros];
 	for (int i = 0; i < this->n + sizeOfMul - numberOfZeros; i++)
 		finalResult[i] = rawResult[i];
@@ -408,16 +408,16 @@ DM_Z DM_Z::operator* (const int &mul) const
 	return result;
 }
 
-// ==================================== РАЦИОНАЛЬНОЕ ЧИСЛО  ==================================== 
+// ==================================== Р РђР¦РРћРќРђР›Р¬РќРћР• Р§РРЎР›Рћ  ==================================== 
 
-//Безаргументный конструктор
+//Р‘РµР·Р°СЂРіСѓРјРµРЅС‚РЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 DM_Q::DM_Q()
 {
 	a = DM_Z();
 	b = DM_Z();
 }
 
-//Конструктор задающий число
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р·Р°РґР°СЋС‰РёР№ С‡РёСЃР»Рѕ
 DM_Q::DM_Q(DM_Z a, DM_Z b)
 {
 	DM_Q::a = a;
@@ -436,12 +436,12 @@ DM_Q::DM_Q(DM_Z a, DM_Z b)
 
 }
 
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 DM_Q::~DM_Q()
 {
 }
 
-//Вывод числа на экран
+//Р’С‹РІРѕРґ С‡РёСЃР»Р° РЅР° СЌРєСЂР°РЅ
 void DM_Q::print()
 {
 	if (b.n == 1 && b.a[0] == 1)
@@ -459,7 +459,7 @@ void DM_Q::print()
 		}
 }
 
-//Умножение рационального числа на целое число (int)
+//РЈРјРЅРѕР¶РµРЅРёРµ СЂР°С†РёРѕРЅР°Р»СЊРЅРѕРіРѕ С‡РёСЃР»Р° РЅР° С†РµР»РѕРµ С‡РёСЃР»Рѕ (int)
 DM_Q DM_Q::operator* (const int &mul) const
 {
 	DM_Q result;
@@ -469,16 +469,16 @@ DM_Q DM_Q::operator* (const int &mul) const
 
 }
 
-// ==================================== ПОЛИНОМ  ==================================== 
+// ==================================== РџРћР›РРќРћРњ  ==================================== 
 
-//Безагрументный конкстурктор
+//Р‘РµР·Р°РіСЂСѓРјРµРЅС‚РЅС‹Р№ РєРѕРЅРєСЃС‚СѓСЂРєС‚РѕСЂ
 DM_P::DM_P()
 {
 	c = 0;
 	m = 0;
 }
 
-//Конструктор с заданиме полиниома
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ Р·Р°РґР°РЅРёРјРµ РїРѕР»РёРЅРёРѕРјР°
 DM_P::DM_P(DM_Q *a, unsigned short size)
 {
 	c = new DM_Q[size];
@@ -487,13 +487,13 @@ DM_P::DM_P(DM_Q *a, unsigned short size)
 		c[i] = a[i];
 }
 
-//Оператор взятия коэффициента
+//РћРїРµСЂР°С‚РѕСЂ РІР·СЏС‚РёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р°
 DM_Q DM_P::operator [] (unsigned short i)
 {
 	return c[i];
 }
 
-//Вывод на экран
+//Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ
 void DM_P::print()
 {
 	for (int i = 0; i <= m; i++)
@@ -519,7 +519,7 @@ void DM_P::print()
 	}
 }
 
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 DM_P::~DM_P() 
 {
 	delete[] c;
