@@ -5,7 +5,7 @@
 ![Downloads](https://img.shields.io/badge/downloads-0-green.svg)
 ![Оценка](https://img.shields.io/badge/%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0-N/A-lightgrey.svg)](http://shields.io/)
 
-###Список модулей###
+###Список основных модулей###
 Готовые модули выделены *курсивом*, а готовые и загруженные выделены **жирным**.
 
   ADD_QQ_Q
@@ -16,7 +16,7 @@
 
   DIV_QQ_Q
 
-  DIV_ZZ_Z
+  **DIV_ZZ_Z**
 
   GCF_NN_N
 
@@ -64,11 +64,11 @@
 
   **DIV_NN_N**
 
-  *DIV_PP_P*
+  **DIV_PP_P**
 
   *GCF_PP_P*
 
-  *MOV_PP_P*
+  **MOD_PP_P**
 
   *MUL_ND_N*
 
@@ -90,7 +90,13 @@
 
   **TRANS_N_Z**
 
-  *TRANS_Z_N*
+  **TRANS_Z_N**
+
+###Список дополнительных модулей###
+
+  **FACTRL** (Вычисление факториала числа)
+
+  **FBNCCI** (Вывод некоторого числа элементов ряда Фибоначчи)
 
 
 
