@@ -7,7 +7,7 @@
 	Параметры: Натуральное число
 */
 
-DM_N ADD_1N_N(DM_N n1){
+DM_N ADD_1N_N_ALT(DM_N n1){
   DM_N temp;
   temp = n1 + DM_N(1);
   return temp;

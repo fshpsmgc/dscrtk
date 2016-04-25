@@ -18,9 +18,17 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 class Merge{
+	public struct settings{
+		public string headerName;
+		public string cppName;
+		public string[] exceptions;
+	};
+
 	static void Main(string[] args){
-		string headerName = "5306lib.h";
-		string cppName = "5306lib.cpp";
+		string settingsPath = "mergeSettings.txt";
+		settings Settings = GetSettings (settingsPath);
+		//string headerName = "5306lib.h";
+		//string cppName = "5306lib.cpp";
 		string[] target_h = new string[2000];
 		string[] target_cpp = new string[500];
 		//Getting all files in current directory
@@ -38,19 +46,37 @@ class Merge{
 		int count_cpp = 0;
 		int count_h = 0;
 		//string[] tempFileName;
+		bool GotException = false;
 		for (int i = 0; i < allFiles.Length; i++) {
 			tempString = GetArgs (allFiles [i], '.');
+			GotException = false;
+			Console.Write ("{0}: ", i);
 			switch (tempString [1]) {
 			case "cpp":
-				if (allFiles [i].Contains (cppName)) {
-					target_cpp = File.ReadAllLines (allFiles [i]);
-				} else {
-					allFiles_cpp [count_cpp] = allFiles [i];
+				if (allFiles [i].Contains (Settings.cppName)) {
+					//target_cpp = File.ReadAllLines (allFiles [i]);
+					Console.WriteLine ("Found target file.");
+
+				}else{
+					for (int j = 0; j < Settings.exceptions.Length; j++) {
+						
+						Console.WriteLine ("Comparing {0} with {1}",allFiles[i], Settings.exceptions[j]);
+						if (allFiles [i] == (AppDomain.CurrentDomain.BaseDirectory + Settings.exceptions [j])) {
+							Console.WriteLine ("Got exception {0}", allFiles [i]);
+							GotException = true;
+						}
+
+					}
+					if (!GotException) {
+						allFiles_cpp [count_cpp] = allFiles [i];
+					}
+
 				}
 				count_cpp++;
 				break;
 			case "h":
-				if (allFiles [i].Contains (headerName)) {
+				Console.WriteLine ("Got header file");
+				if (allFiles [i].Contains (Settings.headerName)) {
 					
 					target_h = File.ReadAllLines (allFiles [i]);
 				} else {
@@ -59,34 +85,13 @@ class Merge{
 				count_h++;
 				break;
 			case "md":
+				Console.WriteLine ("Readme");
 				README = allFiles [i];
 				break;
 			}
 		}
 		Array.Resize (ref allFiles_cpp, count_cpp);
 		Array.Resize (ref allFiles_h, count_h);
-		//All *.cpp files
-		Console.WriteLine("All *.cpp files");
-		for(int i = 0; i < allFiles_cpp.Length; i++) {
-			Console.WriteLine (allFiles_cpp [i]);
-		}
-		//All *.h files
-		Console.WriteLine("All *.h files");
-		for(int i = 0; i < allFiles_h.Length; i++) {
-			Console.WriteLine (allFiles_h [i]);
-		}
-
-		//Write Target cpp
-		Console.WriteLine("Target *.cpp");
-		for(int i = 0; i < target_cpp.Length; i++){
-			Console.WriteLine (target_cpp [i]);
-		}
-
-		//Write target header
-		Console.WriteLine("Target *.h");
-		for (int i = 0; i < target_h.Length; i++) {
-			Console.WriteLine (target_h [i]);
-		}
 
 		//Add files to big pile
 		string[] bigCppArray = new string[2000];
@@ -99,7 +104,12 @@ class Merge{
 			}
 		}
 		Array.Resize (ref bigCppArray, k);
-		File.WriteAllLines (cppName, bigCppArray);
+		File.WriteAllLines (Settings.cppName, bigCppArray);
+
+		Console.WriteLine ("Writing exceptions...");
+		for (int i = 0; i < Settings.exceptions.Length; i++) {
+			Console.WriteLine (Settings.exceptions[i]);
+		}
 
   }
 
@@ -121,5 +131,37 @@ class Merge{
 
 		}
 		return Arguments;
+	}
+
+	public static settings GetSettings(string path){
+		Console.WriteLine ("Getting settings...");
+		string[] settingsArray = File.ReadAllLines (path);
+		string[] tempString;
+		settings tempSettings = new settings();
+		tempSettings.exceptions = new string[0];
+		int k = 0;
+		for (int i = 0; i < settingsArray.Length; i++) {
+			tempString = GetArgs (settingsArray [i], '=');
+			switch (tempString [0]) {
+			case "cpp":
+				tempSettings.cppName = tempString [1];
+				break;
+			case "header":
+				tempSettings.headerName = tempString [1];
+				break;
+			case "//ignore":
+				i++;
+				while (settingsArray [i] != "//end") {
+					Console.WriteLine ("Gettings exceptions...");
+					Array.Resize (ref tempSettings.exceptions, k + 1);
+					tempSettings.exceptions [k] = settingsArray [i];
+					k++;
+					i++;
+				}
+				break;
+			
+			}
+		}
+		return tempSettings;		
 	}
 }
