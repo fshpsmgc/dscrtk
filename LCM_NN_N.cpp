@@ -1,5 +1,5 @@
 /*
-ФИО: Гараев Никита Рравнрестамович
+ФИО: Гараев Никита Рустамович
 e-mail: mqmpgl@gmail.com
 Операция: НОК двух натуральных чисел
 Принимаемые значения: op1 - класс DM_N, op2 - класс DM_N
@@ -10,9 +10,11 @@ e-mail: mqmpgl@gmail.com
                           GCF(a,b)
 */
 DM_N LCM_NN_N(DM_N op1, DM_N op2) {
+    if(op1.a == NULL || op2.a == NULL)
+        return -1;
     DM_N a, b, result;
-    a = op1 * op2;
+    a = op1* op2;
     b = MOD_NN_N(op1, op2);
     result = DIV_NN_N(a, b);
-    return result;
+    return ((result.a != NULL) ? result : -1);
 }
