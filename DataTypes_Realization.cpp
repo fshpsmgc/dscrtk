@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "DataTypes.h"
 #include <math.h>
 //Ученические библиотеки
@@ -177,7 +177,8 @@ DM_N DM_N::operator* (const unsigned &mul) const
 	short current = 0;			//Номер текущего разряда
 	do							//Поразрядно помножаем и записывам остаток от деления на 10 в текущий разряд
 	{
-		r += this->a[current] * mul;
+		if(current < this->n)
+			r += this->a[current] * mul;
 		rawResult[current] = r % 10;
 		r /= 10;
 		current++;
@@ -406,6 +407,63 @@ DM_Z DM_Z::operator* (const int &mul) const
 	result.n = this->n + sizeOfMul - numberOfZeros;
 
 	return result;
+}
+
+//Вычитание из натурального большего или равного ему
+DM_N DM_N::operator- (const DM_N &min)
+{
+	short *rawResult = new short[this->n];	//Предварительный результат
+	for (unsigned short i = 0; i < this->n; i++)
+		rawResult[i] = 0;
+
+	//----------------------------------
+	//Создаем временные изменяемые числа
+
+	short *tempThis = new short[this->n];
+	short *tempMin = new short[min.n];
+
+	for (short i = 0; i < this->n; i++)
+		tempThis[i] = this->a[i];
+
+	for (short i = 0; i < min.n; i++)
+		tempMin[i] = min.a[i];
+
+	//----------------------------------
+
+	for (unsigned short i = 0; i < min.n; i++)
+	{
+		if (tempThis[i] - tempMin[i] < 0)
+		{
+			rawResult[i] = 10 + tempThis[i] - tempMin[i];
+			tempThis[i + 1] -= 1;
+		}
+		else
+			rawResult[i] = tempThis[i] - tempMin[i];
+	}
+
+	for (unsigned short i = min.n; i < this->n; i++)
+		rawResult[i] = tempThis[i];
+	
+	unsigned short uselessZeros = 0;		//Считаем количество незначащих нулей
+	for (unsigned short i = this->n - 1; i >= 0 && rawResult[i] == 0; i--)
+		++uselessZeros;
+
+	if (this->n == uselessZeros)			//Если получились все 0, то возвращаем 0
+		return 0;
+
+	DM_N result;
+	result.n = this->n - uselessZeros;
+
+	result.a = new unsigned short[result.n];
+	for (unsigned short i = 0; i < result.n; i++)
+		result.a[i] = rawResult[i];
+
+	delete[] rawResult;
+	delete[] tempMin;
+	delete[] tempThis;
+
+	return result;
+	
 }
 
 // ==================================== РАЦИОНАЛЬНОЕ ЧИСЛО  ==================================== 
