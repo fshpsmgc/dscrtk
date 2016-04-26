@@ -1,3 +1,5 @@
+//Ершов Даниил 
+//daniilershov2015@gmail.com
 DM_P DM_P::NMR_P_P()
 {
 	DM_P NOD_P, NOD_M, derivative, M, answer; 
