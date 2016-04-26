@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stdafx.h"
 
 
@@ -19,8 +19,9 @@ public:
 	unsigned short operator [] (unsigned short i);	//Оператор взятия n-ой цифры
 	DM_N operator + (const DM_N &add) const;		//Сложение
 	void operator= (const DM_N &equal);				//Присваивание с созданием нового массива
-	DM_N operator* (const unsigned int &mul) const;
-	DM_N operator* (const DM_N &mul) const;
+	DM_N operator* (const unsigned int &mul) const;	//Умножение на беззнаковое целое
+	DM_N operator* (const DM_N &mul) const;			//Умножение на натуральное (DM_N)
+	DM_N operator- (const DM_N &min);				//Вычитание из натурального натурального не большего по модулю
 };
 
 // ==================================== ЦЕЛОЕ ЧИСЛО  ==================================== 
@@ -56,7 +57,7 @@ public:
 	DM_Q(DM_Z a, DM_Z b);								//Конструктор задающий число
 	~DM_Q();											//Деструктор
 	void print();										//Вывод числа на экран
-	DM_Q operator* (const int &mul) const;
+	DM_Q operator* (const int &mul) const;				//Умножение на целое (int)
 };
 
 // ==================================== ПОЛИНОМ  ==================================== 
@@ -65,7 +66,7 @@ class DM_P
 {
 public:
 	DM_Q *c;			//Массив коэффициентов
-	unsigned short m;	//Количество коэффициентов
+	unsigned short m;	//Старшая степень многочлена (количество коэффициентов - 1)
 
 public:
 	DM_P();										//Безаргументный конструктор
