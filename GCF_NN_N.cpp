@@ -13,10 +13,10 @@ DM_N GCF_NN_N(DM_N op1, DM_N op2) {
     DM_N b = op2;
     DM_N c;
     do{
-        c = MOD_NN_N(a, b);
+        c = MOD_NN_N(a, b); // a % b
         a = b;
         b = c;
-    } while (NZER_N_B(c)); 
+    } while (NZER_N_B(c)); // while(c)
     return ((a.a != NULL) ? a : -1);
 }
 
