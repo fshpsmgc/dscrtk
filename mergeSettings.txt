@@ -1,0 +1,2 @@
+cpp=5306lib.cpp
+header=5306lib.h
