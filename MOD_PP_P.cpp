@@ -1,3 +1,8 @@
+//Об авторе:
+//Томинг Яан Аргович, ФКТИ Гр.№5306
+//VK: vk.com/jaann830
+//E-Mail: jtoming@gmail.com
+
 //целочисленное деление
 DM_P DM_P::operator/(DM_P pDivider)
 {
