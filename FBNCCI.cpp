@@ -1,3 +1,8 @@
+//Об авторе:
+//Томинг Яан Аргович, ФКТИ Гр.№5306
+//VK: vk.com/jaann830
+//E-Mail: jtoming@gmail.com
+
 //вывод iMax элементов ряда Фибоначчи
 void DM_N::FBNCCI(int iMax)												
 {
