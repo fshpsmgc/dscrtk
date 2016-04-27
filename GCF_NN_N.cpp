@@ -16,7 +16,7 @@ DM_N GCF_NN_N(DM_N op1, DM_N op2) {
         c = MOD_NN_N(a, b);
         a = b;
         b = c;
-    } while (c);
+    } while (c.a);
     return ((a.a != NULL) ? a : -1);
 }
 
